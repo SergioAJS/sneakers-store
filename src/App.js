@@ -1,6 +1,68 @@
 function App() {
   return (
     <div className="wrapper">
+
+      <div className="overlay">
+        <div className="drawer">
+          <h2>Корзина <img className="remove-btn" src="/img/btn-remove.svg" alt="Remove"/>
+</h2>
+
+          <div className="items">
+
+            <div className="cart-item">
+              <img height={70} width={70} src="/img/sneakers/1.jpg" alt="Sneakers"/>
+              <div className="cart-item-description">
+                <p>
+                  Мужские кроссовки Nike Air Max 270
+                </p>
+                <b>12 999 руб.</b>
+              </div>
+              <img className="remove-btn" src="/img/btn-remove.svg" alt="Remove"/>
+            </div>
+
+            <div className="cart-item">
+              <img height={70} width={70} src="/img/sneakers/1.jpg" alt="Sneakers"/>
+              <div className="cart-item-description">
+                <p>
+                  Мужские кроссовки Nike Air Max 270
+                </p>
+                <b>12 999 руб.</b>
+              </div>
+              <img className="remove-btn" src="/img/btn-remove.svg" alt="Remove"/>
+            </div>
+
+            <div className="cart-item">
+              <img height={70} width={70} src="/img/sneakers/1.jpg" alt="Sneakers"/>
+              <div className="cart-item-description">
+                <p>
+                  Мужские кроссовки Nike Air Max 270
+                </p>
+                <b>12 999 руб.</b>
+              </div>
+              <img className="remove-btn" src="/img/btn-remove.svg" alt="Remove"/>
+            </div>
+
+          </div>
+
+          <div className="overall-price">
+            <ul>
+              <li>
+                <span>Итого</span>
+                <div></div>
+                <b>21 498 руб.</b>
+              </li>
+              <li>
+                <span>Налог 5%:</span>
+                <div></div>
+                <b>1 074 руб.</b>
+              </li>
+            </ul>
+            <button className="green-button">Оформить заказ <img src="/img/arrow.svg" alt="Arrow" /></button>
+          </div>
+
+        </div>
+      </div>
+
       <header>
         <div className="headerLeft">
           <img width={40} height={40} src="/img/logo.png" alt="logo"/>
@@ -24,10 +86,19 @@ function App() {
         </ul>
       </header>
       <div className="content">
-        <h1>Все кроссовки</h1>
+        <div className="search">
+          <h1>Все кроссовки</h1>
+          <div className="search-block">
+            <img src="/img/search.svg" alt="Search" />
+            <input placeholder="Поиск" type="text" />
+          </div>
+        </div>
         <div className="cards">
 
           <div className="card">
+            <div className="favorite">
+              <img src="/img/unliked.svg" alt="Unliked" />
+            </div>
             <img width={133} height={112} src="img/sneakers/1.jpg" alt="Sneakers" />
             <h5>Мужские кроссовки Nike Blazer Mid Suede</h5>
             <div className="description">
