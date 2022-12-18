@@ -14,29 +14,39 @@
     cursor: pointer;
   }
 
-  span {
-    font-size: 13px;
-    opacity: 0.5;
-    text-transform: uppercase;
+  h5 {
+    font-weight: 400;
+    font-size: 14px;
   }
-
-  b {
-    font-size: 13px
-  };
 
   .description {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    h5 {
-      font-weight: 400;
-      font-size: 14px;
+    .button {
+      background: #ffffff;
+      border: 1px solid#f2f2f2;
+      box-sizing: border-box;
+      border-radius: 8px;
+      height: 32px;
+      width: 32px;
+      cursor: pointer;
     }
 
     div {
       display: flex;
       flex-direction: column;
+
+      span {
+        font-size: 13px;
+        opacity: 0.5;
+        text-transform: uppercase;
+      }
+
+      b {
+        font-size: 13px;
+      }
     }
   }
 }
