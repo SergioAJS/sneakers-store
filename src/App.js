@@ -1,30 +1,38 @@
 import Header from "./components/Header";
 import Card from "./components/Card";
 import Drawer from "./components/Drawer";
-
-const arr = [
-  {
-    name: "Мужские кроссовки Nike Blazer",
-    price: 12999,
-    imageUrl: "/img/sneakers/1.jpg",
-  },
-  {
-    name: "Мужские кроссовки Reebok",
-    price: 13300,
-    imageUrl: "/img/sneakers/2.jpg",
-  },
-  {
-    name: "Мужские кроссовки Nike Air",
-    price: 12699,
-    imageUrl: "/img/sneakers/3.jpg",
-  },
-];
+import { useEffect, useState } from "react";
 
 function App() {
+  // const [count, setCount] = useState(5)
+  // const plus = () => {
+  //   setCount(count + 1)
+  // }
+  // const minus = () => {
+  //   setCount(count - 1)
+  // }
+  const [items, setItems] = useState([]);
+  useEffect(() => {
+    fetch("https://dummyjson.com/products?limit=10")
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => setItems(json.products))
+      .catch((err) => console.log(err));
+  }, []);
+
+  const [cartOpened, setCartOpened] = useState(false);
+
   return (
     <div className="wrapper">
-      <Drawer />
-      <Header />
+      {/* <center>
+        <h1>{count}</h1>
+        <button onClick={plus}>+</button>
+        <button onClick={() => minus()}>-</button>
+      </center> */}
+
+      {cartOpened && <Drawer onClose={() => setCartOpened(false)} />}
+      <Header onClickCart={() => setCartOpened(true)} />
 
       <div className="content">
         <div className="search">
@@ -36,13 +44,14 @@ function App() {
         </div>
 
         <div className="cards">
-          {arr.map((obj, index) => (
+          {items.map((obj, index) => (
             <Card
-              title={obj.name}
+              title={obj.title}
               price={obj.price}
-              imageUrl={obj.imageUrl}
-              onClick={() => console.log(obj)}
+              imageUrl={obj.thumbnail}
+              onClickPlus={() => console.log(obj)}
               key={index}
+              // onClickFavorite
             />
           ))}
         </div>

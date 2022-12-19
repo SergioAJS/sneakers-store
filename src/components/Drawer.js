@@ -1,44 +1,66 @@
-function Drawer() {
+function Drawer(props) {
   return (
-    <div style={{ display: 'none'}} className="overlay">
+    <div className="overlay">
       <div className="drawer">
-        <h2>Корзина <img className="remove-btn" src="/img/btn-remove.svg" alt="Remove"/></h2>
+        <h2>
+          Корзина{" "}
+          <img className="remove-btn" src="/img/btn-remove.svg" alt="Remove" onClick={props.onClose} />
+        </h2>
 
         <div className="items">
-
           <div className="cart-item">
-            <img height={70} width={70} src="/img/sneakers/1.jpg" alt="Sneakers"/>
+            <img
+              height={70}
+              width={70}
+              src="/img/sneakers/1.jpg"
+              alt="Sneakers"
+            />
             <div className="cart-item-description">
-              <p>
-                Мужские кроссовки Nike Air Max 270
-              </p>
+              <p>Мужские кроссовки Nike Air Max 270</p>
               <b>12 999 руб.</b>
             </div>
-            <img className="remove-btn" src="/img/btn-remove.svg" alt="Remove"/>
+            <img
+              className="remove-btn"
+              src="/img/btn-remove.svg"
+              alt="Remove"
+            />
           </div>
 
           <div className="cart-item">
-            <img height={70} width={70} src="/img/sneakers/1.jpg" alt="Sneakers"/>
+            <img
+              height={70}
+              width={70}
+              src="/img/sneakers/1.jpg"
+              alt="Sneakers"
+            />
             <div className="cart-item-description">
-              <p>
-                Мужские кроссовки Nike Air Max 270
-              </p>
+              <p>Мужские кроссовки Nike Air Max 270</p>
               <b>12 999 руб.</b>
             </div>
-            <img className="remove-btn" src="/img/btn-remove.svg" alt="Remove"/>
+            <img
+              className="remove-btn"
+              src="/img/btn-remove.svg"
+              alt="Remove"
+            />
           </div>
 
           <div className="cart-item">
-            <img height={70} width={70} src="/img/sneakers/1.jpg" alt="Sneakers"/>
+            <img
+              height={70}
+              width={70}
+              src="/img/sneakers/1.jpg"
+              alt="Sneakers"
+            />
             <div className="cart-item-description">
-              <p>
-                Мужские кроссовки Nike Air Max 270
-              </p>
+              <p>Мужские кроссовки Nike Air Max 270</p>
               <b>12 999 руб.</b>
             </div>
-            <img className="remove-btn" src="/img/btn-remove.svg" alt="Remove"/>
+            <img
+              className="remove-btn"
+              src="/img/btn-remove.svg"
+              alt="Remove"
+            />
           </div>
-
         </div>
 
         <div className="overall-price">
@@ -54,9 +76,10 @@ function Drawer() {
               <b>1 074 руб.</b>
             </li>
           </ul>
-          <button className="green-button">Оформить заказ <img src="/img/arrow.svg" alt="Arrow" /></button>
+          <button className="green-button">
+            Оформить заказ <img src="/img/arrow.svg" alt="Arrow" />
+          </button>
         </div>
-
       </div>
     </div>
   );
