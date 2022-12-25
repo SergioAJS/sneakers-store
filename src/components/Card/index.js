@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 function Card({ title, thumbnail, price, onFavorite, onPlus }) {
   const [isAdded, setIsAdded] = useState(false);
   const onClickPlus = () => {
-    onPlus({ title, thumbnail, price });
+    onPlus();
     setIsAdded(!isAdded);
   };
 
-  // useEffect(() => {}, [isAdded]);
+  useEffect(() => {}, [isAdded]);
 
   const [isFavorite, setIsFavorite] = useState(false);
   const onClickFavorite = () => {
@@ -16,7 +16,7 @@ function Card({ title, thumbnail, price, onFavorite, onPlus }) {
     setIsFavorite(!isFavorite);
   };
 
-  // useEffect(() => {}, [isFavorite]);
+  useEffect(() => {}, [isFavorite]);
 
   return (
     <div className={styles.card}>
