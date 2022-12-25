@@ -24,6 +24,11 @@ function App() {
       .catch((err) => console.log(err));
   }, []);
 
+  const onAddToCart = (obj) => {
+    // setCartItems(cartItems.concat(obj))
+    setCartItems([...cartItems, obj]);
+  };
+
   return (
     <div className="wrapper">
       {/* <center>
@@ -32,7 +37,9 @@ function App() {
         <button onClick={() => minus()}>-</button>
       </center> */}
 
-      {cartOpened && <Drawer items={cartItems} onClose={() => setCartOpened(false)} />}
+      {cartOpened && (
+        <Drawer items={cartItems} onClose={() => setCartOpened(false)} />
+      )}
       <Header onClickCart={() => setCartOpened(true)} />
 
       <div className="content">
@@ -45,13 +52,13 @@ function App() {
         </div>
 
         <div className="cards">
-          {items.map((obj, index) => (
+          {items.map((item, index) => (
             <Card
-              title={obj.title}
-              price={obj.price}
-              imageUrl={obj.thumbnail}
-              onPlus={() => console.log('ebt')}
-              onFavorite={() => console.log(obj)}
+              title={item.title}
+              price={item.price}
+              thumbnail={item.thumbnail}
+              onPlus={(obj) => onAddToCart(obj)}
+              onFavorite={() => console.log(item)}
               key={index}
             />
           ))}

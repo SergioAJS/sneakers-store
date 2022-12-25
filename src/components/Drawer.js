@@ -1,4 +1,4 @@
-function Drawer({onClose, items = []}) {
+function Drawer({ items, onClose }) {
   return (
     <div className="overlay">
       <div className="drawer">
@@ -14,16 +14,11 @@ function Drawer({onClose, items = []}) {
 
         <div className="items">
           {items.map((obj) => (
-            <div className="cart-item">
-              <img
-                height={70}
-                width={70}
-                src={obj.thumbnail}
-                alt="Sneakers"
-              />
+            <div className="cart-item" key={obj.title}>
+              <img height={70} width={70} src={obj.thumbnail} alt="Sneakers" />
               <div className="cart-item-description">
                 <p>{obj.title}</p>
-                <b>{obj.price}</b>
+                <b>${obj.price}</b>
               </div>
               <img
                 className="remove-btn"
@@ -39,12 +34,12 @@ function Drawer({onClose, items = []}) {
             <li>
               <span>Итого</span>
               <div></div>
-              <b>21 498 руб.</b>
+              <b>$21 498</b>
             </li>
             <li>
               <span>Налог 5%:</span>
               <div></div>
-              <b>1 074 руб.</b>
+              <b>$1 074</b>
             </li>
           </ul>
           <button className="green-button">
