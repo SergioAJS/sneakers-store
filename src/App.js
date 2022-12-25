@@ -12,6 +12,7 @@ function App() {
   //   setCount(count - 1)
   // }
   const [items, setItems] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
   const [cartOpened, setCartOpened] = useState(false);
 
   useEffect(() => {
@@ -31,7 +32,7 @@ function App() {
         <button onClick={() => minus()}>-</button>
       </center> */}
 
-      {cartOpened && <Drawer onClose={() => setCartOpened(false)} />}
+      {cartOpened && <Drawer items={cartItems} onClose={() => setCartOpened(false)} />}
       <Header onClickCart={() => setCartOpened(true)} />
 
       <div className="content">
@@ -49,8 +50,8 @@ function App() {
               title={obj.title}
               price={obj.price}
               imageUrl={obj.thumbnail}
-              onClickPlus={() => console.log(obj)}
-              onClickFavorite={() => console.log(obj)}
+              onPlus={() => console.log('ebt')}
+              onFavorite={() => console.log(obj)}
               key={index}
             />
           ))}
