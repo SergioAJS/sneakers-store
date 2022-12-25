@@ -12,6 +12,8 @@ function App() {
   //   setCount(count - 1)
   // }
   const [items, setItems] = useState([]);
+  const [cartOpened, setCartOpened] = useState(false);
+
   useEffect(() => {
     fetch("https://dummyjson.com/products?limit=10")
       .then((res) => {
@@ -20,8 +22,6 @@ function App() {
       .then((json) => setItems(json.products))
       .catch((err) => console.log(err));
   }, []);
-
-  const [cartOpened, setCartOpened] = useState(false);
 
   return (
     <div className="wrapper">
@@ -50,8 +50,8 @@ function App() {
               price={obj.price}
               imageUrl={obj.thumbnail}
               onClickPlus={() => console.log(obj)}
+              onClickFavorite={() => console.log(obj)}
               key={index}
-              // onClickFavorite
             />
           ))}
         </div>

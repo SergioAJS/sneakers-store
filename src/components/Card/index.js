@@ -7,14 +7,23 @@ function Card(props) {
     setIsAdded(!isAdded);
   };
 
-  useEffect(() => {
-    console.log("changed");
-  }, [isAdded]);
+  useEffect(() => {}, [isAdded]);
+
+  const [isFavorite, setIsFavorite] = useState(false);
+  const onClickFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
+
+  useEffect(() => {}, [isFavorite]);
 
   return (
     <div className={styles.card}>
       <div className={styles.favorite}>
-        <img src="/img/unliked.svg" alt="Unliked" />
+        <img
+          onClick={onClickFavorite}
+          src={isFavorite ? "/img/liked.svg" : "/img/unliked.svg"}
+          alt="Favorite"
+        />
       </div>
       <img width={133} height={112} src={props.imageUrl} alt="Sneakers" />
       <h5>{props.title}</h5>
