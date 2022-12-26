@@ -1,18 +1,12 @@
 import Header from "./components/Header";
-import Card from "./components/Card";
 import Drawer from "./components/Drawer";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Route, Routes } from "react-router-dom";
+import { Home } from "./pages/Home";
+import { Favorites } from "./pages/Favorites";
 
 function App() {
-  // const [count, setCount] = useState(5)
-  // const plus = () => {
-  //   setCount(count + 1)
-  // }
-  // const minus = () => {
-  //   setCount(count - 1)
-  // }
   const [items, setItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [favorites, setFavorites] = useState([]);
@@ -28,11 +22,11 @@ function App() {
       .then((res) => {
         setCartItems(res.data);
       });
-      axios.get("https://63a8814df4962215b583b49f.mockapi.io/favorites")
+    axios
+      .get("https://63a8814df4962215b583b49f.mockapi.io/favorites")
       .then((res) => {
         setFavorites(res.data);
       });
-
   }, []);
 
   const onAddToCart = (obj) => {
@@ -41,9 +35,23 @@ function App() {
     setCartItems((prev) => [...prev, obj]);
   };
 
-  const onAddToFavorite = (obj) => {
-    axios.post("https://63a8814df4962215b583b49f.mockapi.io/favorites", obj);
-    setFavorites((prev) => [...prev, obj]);
+  const onAddToFavorite = async (obj) => {
+    try {
+      if (favorites.find((favObj) => favObj.id === obj.id)) {
+        axios.delete(
+          `https://63a8814df4962215b583b49f.mockapi.io/favorites/${obj.id}`
+        );
+        setFavorites((prev) => prev.filter((item) => item.id !== obj.id));
+      } else {
+        const { data } = await axios.post(
+          "https://63a8814df4962215b583b49f.mockapi.io/favorites",
+          obj
+        );
+        setFavorites((prev) => [...prev, data]);
+      }
+    } catch (error) {
+      alert("Не удалось добавить в фавориты");
+    }
   };
 
   const onRemoveFromCart = (id) => {
@@ -59,14 +67,9 @@ function App() {
     <Routes>
       <Route
         path="/"
+        exact
         element={
           <div className="wrapper">
-            {/* <center>
-      <h1>{count}</h1>
-      <button onClick={plus}>+</button>
-      <button onClick={() => minus()}>-</button>
-    </center> */}
-
             {cartOpened && (
               <Drawer
                 items={cartItems}
@@ -75,71 +78,37 @@ function App() {
               />
             )}
             <Header onClickCart={() => setCartOpened(true)} />
-            <div className="content">
-              <div className="search">
-                <h1>
-                  {searchValue
-                    ? `Поиск по запросу: "${searchValue}"`
-                    : "Все кроссовки"}
-                </h1>
-                <div className="search-block">
-                  <img src="/img/search.svg" alt="Search" />
-                  {searchValue && (
-                    <img
-                      onClick={() => setSearchValue("")}
-                      className="clear remove-btn"
-                      src="/img/btn-remove.svg"
-                      alt="Clear"
-                    />
-                  )}
-                  <input
-                    onChange={onChangeSearchInput}
-                    value={searchValue}
-                    placeholder="Поиск"
-                    type="text"
-                  />
-                </div>
-              </div>
-
-              <div className="cards">
-                {items
-                  .filter((item) =>
-                    item.title.toLowerCase().includes(searchValue.toLowerCase())
-                  )
-                  .map((item, index) => (
-                    <Card
-                      title={item.title}
-                      price={item.price}
-                      thumbnail={item.thumbnail}
-                      onPlus={() => onAddToCart(item)}
-                      onFavorite={() => onAddToFavorite(item)}
-                      key={index}
-                    />
-                  ))}
-              </div>
-            </div>
+            <Home
+              items={items}
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              onChangeSearchInput={onChangeSearchInput}
+              onAddToFavorite={onAddToFavorite}
+              onAddToCart={onAddToCart}
+            />
           </div>
         }
       ></Route>
       <Route
         path="/favorites"
+        exact
         element={
           <div className="wrapper">
-            <div className="content">
-              <Header onClickCart={() => setCartOpened(true)} />
-              <div className="cards">
-                {favorites.map((item, index) => (
-                  <Card
-                    title={item.title}
-                    price={item.price}
-                    thumbnail={item.thumbnail}
-                    onPlus={() => onAddToCart(item)}
-                    onFavorite={() => onAddToFavorite(item)}
-                    key={index}
-                  />
-                ))}
-              </div>
-            </div>
+            {cartOpened && (
+              <Drawer
+                items={cartItems}
+                onClose={() => setCartOpened(false)}
+                onRemove={onRemoveFromCart}
+              />
+            )}
+            <Header onClickCart={() => setCartOpened(true)} />
+            <Favorites
+              items={favorites}
+              searchValue={searchValue}
+              setSearchValue={setSearchValue}
+              onChangeSearchInput={onChangeSearchInput}
+              onAddToFavorite={onAddToFavorite}
+            />
           </div>
         }
       ></Route>

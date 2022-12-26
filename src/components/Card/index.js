@@ -1,7 +1,7 @@
 import styles from "./Card.module.scss";
 import { useEffect, useState } from "react";
 
-function Card({ title, thumbnail, price, onFavorite, onPlus }) {
+function Card({ id, title, thumbnail, price, onFavorite, onPlus, favorited = false }) {
   const [isAdded, setIsAdded] = useState(false);
   const onClickPlus = () => {
     onPlus();
@@ -10,7 +10,7 @@ function Card({ title, thumbnail, price, onFavorite, onPlus }) {
 
   useEffect(() => {}, [isAdded]);
 
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(favorited);
   const onClickFavorite = () => {
     onFavorite();
     setIsFavorite(!isFavorite);
