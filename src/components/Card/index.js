@@ -57,7 +57,7 @@ function Card({
               alt="Favorite"
             />
           </div>
-          <img width={133} height={112} src={thumbnail} alt="Sneakers" />
+          <img width="100%" height="45%" src={thumbnail} alt="Sneakers" />
           <h5>{title}</h5>
           <div className={styles.description}>
             <div>

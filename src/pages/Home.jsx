@@ -8,7 +8,24 @@ export function Home({
   onChangeSearchInput,
   onAddToFavorite,
   onAddToCart,
+  isLoading,
 }) {
+  const renderItems = () => {
+    const filteredItems = items.filter((item) =>
+      item.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+
+    return (isLoading ? [...Array(8)] : filteredItems).map((item, index) => (
+      <Card
+        onPlus={() => onAddToCart(item)}
+        onFavorite={() => onAddToFavorite(item)}
+        added={cartItems.some((obj) => Number(obj.id) === Number(item.id))}
+        loading={isLoading}
+        key={index}
+        {...item}
+      />
+    ));
+  };
   return (
     <div className="content">
       <div className="search">
@@ -34,24 +51,7 @@ export function Home({
         </div>
       </div>
 
-      <div className="cards">
-        {items
-          .filter((item) =>
-            item.title.toLowerCase().includes(searchValue.toLowerCase())
-          )
-          .map((item, index) => (
-            <Card
-              onPlus={() => onAddToCart(item)}
-              onFavorite={() => onAddToFavorite(item)}
-              added={cartItems.some(
-                (obj) => Number(obj.id) === Number(item.id)
-              )}
-              loading={false}
-              key={index}
-              {...item}
-            />
-          ))}
-      </div>
+      <div className="cards">{renderItems()}</div>
     </div>
   );
 }
