@@ -2,6 +2,7 @@ import Card from "../components/Card";
 
 export function Home({
   items,
+  cartItems,
   searchValue,
   setSearchValue,
   onChangeSearchInput,
@@ -42,6 +43,10 @@ export function Home({
             <Card
               onPlus={() => onAddToCart(item)}
               onFavorite={() => onAddToFavorite(item)}
+              added={cartItems.some(
+                (obj) => Number(obj.id) === Number(item.id)
+              )}
+              loading={false}
               key={index}
               {...item}
             />
