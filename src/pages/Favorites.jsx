@@ -1,12 +1,14 @@
+import { useContext } from "react";
 import Card from "../components/Card";
+import { AppContext } from "../context";
 
 export function Favorites({
-  items,
   searchValue,
   setSearchValue,
   onChangeSearchInput,
-  onAddToFavorite,
 }) {
+  const { favorites, onAddToFavorite } = useContext(AppContext);
+
   return (
     <div className="content">
       <div className="search">
@@ -33,14 +35,13 @@ export function Favorites({
       </div>
 
       <div className="cards">
-        {items
+        {favorites
           .filter((item) =>
             item.title.toLowerCase().includes(searchValue.toLowerCase())
           )
           .map((item, index) => (
             <Card
               favorited={true}
-              // onPlus={() => onAddToCart(item)}
               onFavorite={() => onAddToFavorite(item)}
               key={index}
               {...item}

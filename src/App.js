@@ -5,6 +5,7 @@ import axios from "axios";
 import { Route, Routes } from "react-router-dom";
 import { Home } from "./pages/Home";
 import { Favorites } from "./pages/Favorites";
+import { AppContext } from "./context";
 
 function App() {
   const [items, setItems] = useState([]);
@@ -60,7 +61,7 @@ function App() {
         axios.delete(
           `https://63a8814df4962215b583b49f.mockapi.io/favorites/${obj.id}`
         );
-        setFavorites((prev) => prev.filter((item) => item.id !== obj.id));
+        setFavorites((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)));
       } else {
         const { data } = await axios.post(
           "https://63a8814df4962215b583b49f.mockapi.io/favorites",
@@ -82,58 +83,62 @@ function App() {
     setSearchValue(event.target.value);
   };
 
+  const isItemAdded = (id) => {
+    return cartItems.some((obj) => Number(obj.id) === Number(id))
+  }
+
   return (
-    <Routes>
-      <Route
-        path="/"
-        exact
-        element={
-          <div className="wrapper">
-            {cartOpened && (
-              <Drawer
-                items={cartItems}
-                onClose={() => setCartOpened(false)}
-                onRemove={onRemoveFromCart}
+    <AppContext.Provider value={{ items, cartItems, favorites, isItemAdded, onAddToFavorite }}>
+      <Routes>
+        <Route
+          path="/"
+          exact
+          element={
+            <div className="wrapper">
+              {cartOpened && (
+                <Drawer
+                  items={cartItems}
+                  onClose={() => setCartOpened(false)}
+                  onRemove={onRemoveFromCart}
+                />
+              )}
+              <Header onClickCart={() => setCartOpened(true)} />
+              <Home
+                items={items}
+                cartItems={cartItems}
+                searchValue={searchValue}
+                setSearchValue={setSearchValue}
+                onChangeSearchInput={onChangeSearchInput}
+                onAddToFavorite={onAddToFavorite}
+                onAddToCart={onAddToCart}
+                isLoading={isLoading}
               />
-            )}
-            <Header onClickCart={() => setCartOpened(true)} />
-            <Home
-              items={items}
-              cartItems={cartItems}
-              searchValue={searchValue}
-              setSearchValue={setSearchValue}
-              onChangeSearchInput={onChangeSearchInput}
-              onAddToFavorite={onAddToFavorite}
-              onAddToCart={onAddToCart}
-              isLoading={isLoading}
-            />
-          </div>
-        }
-      ></Route>
-      <Route
-        path="/favorites"
-        exact
-        element={
-          <div className="wrapper">
-            {cartOpened && (
-              <Drawer
-                items={cartItems}
-                onClose={() => setCartOpened(false)}
-                onRemove={onRemoveFromCart}
+            </div>
+          }
+        ></Route>
+        <Route
+          path="/favorites"
+          exact
+          element={
+            <div className="wrapper">
+              {cartOpened && (
+                <Drawer
+                  items={cartItems}
+                  onClose={() => setCartOpened(false)}
+                  onRemove={onRemoveFromCart}
+                />
+              )}
+              <Header onClickCart={() => setCartOpened(true)} />
+              <Favorites
+                searchValue={searchValue}
+                setSearchValue={setSearchValue}
+                onChangeSearchInput={onChangeSearchInput}
               />
-            )}
-            <Header onClickCart={() => setCartOpened(true)} />
-            <Favorites
-              items={favorites}
-              searchValue={searchValue}
-              setSearchValue={setSearchValue}
-              onChangeSearchInput={onChangeSearchInput}
-              onAddToFavorite={onAddToFavorite}
-            />
-          </div>
-        }
-      ></Route>
-    </Routes>
+            </div>
+          }
+        ></Route>
+      </Routes>
+    </AppContext.Provider>
   );
 }
 
