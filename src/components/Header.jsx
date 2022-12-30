@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useCart } from "../hooks/useCart";
 
 function Header(props) {
+  const { totalPrice } = useCart();
+
   return (
     <header>
       <div className="headerLeft">
@@ -44,7 +47,7 @@ function Header(props) {
               strokeLinejoin="round"
             />
           </svg>
-          <span>1 205 руб.</span>
+          <span>${totalPrice}</span>
         </li>
         <li>
           <Link to="/favorites">
