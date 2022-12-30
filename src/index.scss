@@ -115,7 +115,6 @@ header {
     &:hover {
       opacity: 1;
     }
-
   }
 
   input {
@@ -241,6 +240,11 @@ header {
     transition: transform 0.15s ease-in-out;
     margin-bottom: 30px;
 
+    &:disabled {
+      background-color: #bebebe;
+      cursor: default;
+    }
+
     &:hover {
       img {
         transform: translateX(5px);
@@ -274,4 +278,10 @@ header {
   &:active {
     background: darken($color: #9dd558, $amount: 5%);
   }
+}
+
+.cartImage {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
 }
